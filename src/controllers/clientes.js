@@ -1,19 +1,25 @@
 const response = require("../utils/response");
+const ClienteDB = require("../repositories/clienteDB"); //esse é GET, mas criarClientes é POST
 
-const criarClientes = async (ctx) => {
-  const { cliente = null } = ctx.params;
-  if (cliente) {
-    const result = await Clientes.criarClientes(cliente);
-    if (result) {
-      return response(ctx, 200, result);
-    }
+const criarCliente = async (ctx) => {
+  const { nome = null, email = null, senha = null } = ctx.request.body;
+  if (nome == null || email == null || senha == null) {
+    return response(ctx, 400, {
+      mensagem: "É necessário preencher todos os campos",
+    });
   }
-  return response(ctx, 400, { mensagem: "Error" });
+  const user = await ClienteDB.criarCliente(nome, email, senha);
+  ctx.status = 201;
+  ctx.body = {
+    dados: {
+      id: user.id,
+    },
+  };
 };
 
 module.exports = {
-  criarClientes,
-  editarCliente,
+  criarCliente,
+  /*editarCliente,
   listarClientes,
-  buscarClientes,
+  buscarClientes,*/
 };
