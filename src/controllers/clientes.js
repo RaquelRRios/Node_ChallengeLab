@@ -1,5 +1,5 @@
 const response = require("../utils/response");
-const ClienteDB = require("../repositories/clienteDB"); //esse é GET, mas criarClientes é POST
+const ClienteDB = require("../repositories/clienteDB");
 
 const criarCliente = async (ctx) => {
   const { nome = null, email = null, senha = null } = ctx.request.body;

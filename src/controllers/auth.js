@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const Response = require("../utils/response");
+const response = require("../utils/response");
 const Session = require("../middlewares/session");
 const Password = require("../utils/password");
-const Usuarios = require("../repositories/jogos");
+const UsuariosDB = require("../repositories/usuarioDB");
 
 require("dotenv").config();
 
@@ -14,7 +14,7 @@ const autenticar = async (ctx) => {
     });
   }
 
-  const usuario = await Usuarios.obterUsuarioPorEmail(email);
+  const usuario = await UsuariosDB.obterUsuarioPorEmail(email);
 
   if (usuario) {
     const comparison = await Password.check(password, usuario.senha);
@@ -26,12 +26,13 @@ const autenticar = async (ctx) => {
           expiresIn: "1h",
         }
       );
-      return Response.response(ctx, 200, { token });
+      return response(ctx, 200, { token });
     }
   }
 
-  return Response.response(ctx, 200, {
+  return response(ctx, 200, {
     mensagem: "email ou senha incorretos",
   });
 };
+
 module.exports = { autenticar };
