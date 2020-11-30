@@ -12,4 +12,14 @@ async function obterUsuarioPorEmail(email) {
   return result.rows.shift();
 }
 
-module.exports = { obterUsuarioPorEmail };
+const criarUsuario = async (nome, email, senha) => {
+  const query =
+    "INSERT INTO usuario(nome, email, senha) VALUES ($1, $2, $3) RETURNING *";
+  const usuario = await database.query({
+    text: query,
+    values: [nome, email, senha],
+  });
+  return usuario.rows[0];
+};
+
+module.exports = { obterUsuarioPorEmail, criarUsuario };

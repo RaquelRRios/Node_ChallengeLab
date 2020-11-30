@@ -9,7 +9,7 @@ const verify = async (ctx, next) => {
   try {
     const verification = await jwt.verify(token, process.env.JWT_SECRET);
 
-    ctx.state.userId = verification.id;
+    ctx.state.usuario = verification.id;
     ctx.state.email = verification.email;
   } catch (err) {
     console.log(err);
