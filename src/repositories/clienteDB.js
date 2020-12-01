@@ -1,3 +1,4 @@
+const clientes = require("../controllers/clientes");
 const database = require("../utils/database");
 
 const criarCliente = async (nome, email, cpf, tel) => {
@@ -10,4 +11,10 @@ const criarCliente = async (nome, email, cpf, tel) => {
   return cliente.rows[0];
 };
 
-module.exports = { criarCliente };
+async function listarClientes() {
+  const query = `SELECT * FROM cliente`;
+  const result = await database.query(query);
+  return result.rows;
+}
+
+module.exports = { criarCliente, listarClientes };

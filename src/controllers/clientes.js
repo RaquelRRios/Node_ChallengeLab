@@ -22,9 +22,18 @@ const criarCliente = async (ctx) => {
   };
 };
 
+async function listarClientes(ctx) {
+  const lista = await ClienteDB.listarClientes();
+  let cliente = new Set();
+  for (let id of cliente) {
+    cliente.add(cliente.id);
+  }
+  response(ctx, 200, [...lista]);
+}
+
 module.exports = {
   criarCliente,
-  /*editarCliente,
+  /*editarCliente,*/
   listarClientes,
-  buscarClientes,*/
+  /*buscarClientes,*/
 };
