@@ -3,20 +3,32 @@ const CobrancaDB = require("../repositories/cobrancaDB");
 
 const criarCobranca = async (ctx) => {
   const {
+    idDoCliente = null,
     descricao = null,
     valor = null,
     vencimento = null,
   } = ctx.request.body;
-  if (descricao == null || valor == null || vencimento == null) {
+  if (
+    idDoCliente == null ||
+    descricao == null ||
+    valor == null ||
+    vencimento == null
+  ) {
     return response(ctx, 400);
   }
-  const user = await CobrancaDB.criarCobranca(descricao, valor, vencimento);
+  const user = await CobrancaDB.criarCobranca(
+    idDoCliente,
+    descricao,
+    valor,
+    vencimento
+  );
   ctx.status = 201;
   ctx.body = {
     dados: {
-      descricao: "descrição da cobrança",
+      idDoCliente: "",
+      descricao: "",
       valor: 120000,
-      vencimento: "data_de_vencimento",
+      vencimento: "",
     },
   };
 };
