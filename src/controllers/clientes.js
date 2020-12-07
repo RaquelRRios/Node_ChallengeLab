@@ -27,21 +27,22 @@ async function listarClientes(ctx) {
   const lista = await ClienteDB.listarClientes();
   let cliente = new Set();
   for (let cliente of lista) {
-    const cobrancas = await CobrancaDB.listaCobrancadeCliente();
-    let cobrancasFeitas = 0;
-    let cobrancasPagas = 0;
-    let estaInadimplente = false;
-    for (let cobranca of cobrancas) {
-      cobrancasFeitas = cobrancasFeitas + 1;
-      cobrancasPagas = cobrancasPagas + 1;
-      if (cobranca.vencimento > new Date()) {
-        estaInadimplente = true;
-      }
-    }
+    // const cobrancas = await CobrancaDB.listaCobrancadeCliente();
+    // let cobrancasFeitas = 0;
+    // let cobrancasPagas = 0;
+    // let estaInadimplente = false;
+    // for (let cobranca of cobrancas) {
+    //   cobrancasFeitas = cobrancasFeitas + 1;
+    //   cobrancasPagas = cobrancasPagas + 1;
+    //   if (cobranca.vencimento > new Date()) {
+    //     estaInadimplente = true;
+    //   }
+    // }
 
-    cliente.add(cliente.id);
+    // cliente.add(cliente.id);
+    //   }
+    response(ctx, 200, [...lista]);
   }
-  response(ctx, 200, [...lista]);
 }
 
 module.exports = {
