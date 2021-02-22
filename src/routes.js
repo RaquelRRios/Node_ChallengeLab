@@ -14,4 +14,6 @@ router.get("/followers", Followers.followers);
 router.post("/followers", Followers.follower);
 router.put("/followers", Followers.follower);
 
+router.get("/followings", Followings.followings);
+
 module.exports = router;
