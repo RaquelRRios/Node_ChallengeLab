@@ -1,14 +1,14 @@
 const response = require("../utils/response");
-const UsuarioDB = require("../repositories/usuarioDB");
+const UserDB = require("../repositories/userDB");
 
-const criarUsuario = async (ctx) => {
+const createUser = async (ctx) => {
   const { nome = null, email = null, senha = null } = ctx.request.body;
   if (nome == null || email == null || senha == null) {
     return response(ctx, 400, {
       mensagem: "É necessário preencher todos os campos",
     });
   }
-  const user = await UsuarioDB.criarUsuario(nome, email, senha);
+  const user = await UserDB.createUser(nome, email, senha);
   ctx.status = 201;
   ctx.body = {
     dados: {
@@ -17,4 +17,4 @@ const criarUsuario = async (ctx) => {
   };
 };
 
-module.exports = { criarUsuario };
+module.exports = { createUser };

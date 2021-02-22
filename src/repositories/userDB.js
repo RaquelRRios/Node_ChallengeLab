@@ -12,7 +12,7 @@ async function obterUsuarioPorEmail(email) {
   return result.rows.shift();
 }
 
-const criarUsuario = async (nome, email, senha) => {
+const createUser = async (nome, email, senha) => {
   const query =
     "INSERT INTO usuario(nome, email, senha) VALUES ($1, $2, $3) RETURNING *";
   const usuario = await db.query({
@@ -22,4 +22,4 @@ const criarUsuario = async (nome, email, senha) => {
   return usuario.rows[0];
 };
 
-module.exports = { obterUsuarioPorEmail, criarUsuario };
+module.exports = { obterUsuarioPorEmail, createUser };

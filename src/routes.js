@@ -3,23 +3,15 @@ const Router = require("koa-router");
 const router = new Router();
 
 const Auth = require("./controllers/auth");
-const Clientes = require("./controllers/clientes");
-const Cobrancas = require("./controllers/cobrancas");
-/*const Relatorios = require("./controllers/relatorios");*/
-const Usuarios = require("./controllers/usuarios");
+const Followers = require("./controllers/followers");
+const Followings = require("./controllers/followings");
+const Users = require("./controllers/users");
 
-/*const Password = require("./middlewares/encrypt");
-const Session = require("./middlewares/session");*/
+const idValidation = require("./middlewares/idValidation");
 
 router.post("/auth", Auth.autenticar);
-router.post("/clientes", Clientes.criarCliente);
-/*router.put("/clientes", Session.verify, Clientes.editarCliente);*/
-router.get("/clientes", Clientes.listarClientes);
-/*router.get("/clientes/:id", Clientes.buscarClientes);*/
-router.post("/cobrancas", Cobrancas.criarCobranca);
-router.get("/cobrancas", Cobrancas.listarCobrancas);
-// router.put("/cobrancas", Session.verify, Cobrancas.pagarCobranca);
-// router.get("/relatorios", Relatorios.obterRelatorio);*/
-router.post("/usuarios", Usuarios.criarUsuario);
+router.get("/followers", Followers.followers);
+router.post("/followers", Followers.follower);
+router.put("/followers", Followers.follower);
 
 module.exports = router;

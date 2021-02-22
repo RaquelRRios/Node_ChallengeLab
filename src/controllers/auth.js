@@ -1,27 +1,26 @@
 const jwt = require("jsonwebtoken");
 const response = require("../utils/response");
-const Session = require("../middlewares/session");
-const Password = require("../utils/password");
-const UsuariosDB = require("../repositories/usuarioDB");
+const idValidation = require("../middlewares/idValidation");
+const UserDB = require("../repositories/userDB");
 
 require("dotenv").config();
 
 const autenticar = async (ctx) => {
   const { email = null, password = null } = ctx.request.body;
   if (!email || !password) {
-    return Session.response(ctx, 400, {
+    return idValidation.response(ctx, 400, {
       mensagem: "Pedido mal formatado",
     });
   }
 
-  const usuario = await UsuariosDB.obterUsuarioPorEmail(email);
+  const user = await UserDB.obterUsuarioPorEmail(email);
 
-  if (usuario) {
-    const comparison = await Password.check(password, usuario.senha);
+  if (user) {
+    const comparison = await idValidation.check(password, user.senha);
     if (comparison) {
       const token = await jwt.sign(
-        { id: usuario.id, email: usuario.email },
-        process.env.JWT_SECRET || "desafioback",
+        { id: user.id, email: user.email },
+        process.env.JWT_SECRET || "desafionode",
         {
           expiresIn: "1h",
         }
